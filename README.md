@@ -25,29 +25,10 @@ Install by following the guidelines [here](https://flutter.dev/docs/get-started/
 
 [General documentation](https://flutter.dev/docs)
 
-### TensorFlow Lite
-> The model can be written in TensorFlow Lite to train the dataset
-
-Install by following the guidlines [here](https://www.tensorflow.org/lite)
-
-### TensorFlow Lite Flutter plugin
-> To implement Flutter and your TensorFlow Lite model
-
-Install by following the guidelines [here](https://pub.dev/packages/tflite)
-
-### PyTorch
-> PyTorch Mobile is a machine learning framework
-
-Install by following the guidelines [here](https://pytorch.org/mobile/home/)
-
-### PyTorch Flutter plugin
-> These can be used to implement Flutter and your existing PyTorch model
-
-> *However, note that this only supports Android and not iOS*
-
-For installation and guidelines, click [here](https://pub.dev/packages/pytorch_mobile)
-
-For an older version, click [here](https://pub.dev/packages/torch_mobile)
+### AWS Rekognition
+> The model should be trained utilizing AWS Rekognition
+>
+> [AWS Documentation](https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html) and [API Reference](https://docs.aws.amazon.com/rekognition/latest/dg/API_Reference.html)
 
 ### Other cloud platforms to train your model
 - [IBM Watson](https://www.ibm.com/cloud/machine-learning)
