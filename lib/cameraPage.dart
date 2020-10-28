@@ -11,6 +11,7 @@ import 'dart:convert';
 import 'dart:io' as Io;
 import 'dart:developer';
 import 'package:http/http.dart' as http;
+import 'CameraScreen.dart';
 import 'package:flutter/services.dart';
 
 String label = 'NULL';
@@ -31,25 +32,27 @@ const double conf = 20.0, maxResult = 35;
 }*/
 
 class CameraPage extends StatelessWidget{
-  CameraController _controller;
-  Future<void> _initializeControllerFuture;
-  final CameraDescription camera;
-
+  // CameraController _controller;
+  // Future<void> _initializeControllerFuture;
+  final CameraDescription firstCamera;
+  //
    CameraPage({
     Key key,
-    @required this.camera,
+    @required this.firstCamera,
   }) : super(key: key){
-     // To display the current output from the Camera,
-     // create a CameraController.
-     _controller = CameraController(
-       // Get a specific camera from the list of available cameras.
-       this.camera,
-       // Define the resolution to use.
-       ResolutionPreset.medium,
-     );
+     // // To display the current output from the Camera,
+     // // create a CameraController.
+     // _controller = CameraController(
+     //   // Get a specific camera from the list of available cameras.
+     //   this.camera,
+     //   // Define the resolution to use.
+     //   ResolutionPreset.medium,
+     // );
+     //
+     // // Next, initialize the controller. This returns a Future.
+     // _initializeControllerFuture = _controller.initialize();
 
-     // Next, initialize the controller. This returns a Future.
-     _initializeControllerFuture = _controller.initialize();
+
    }
 
   // @override
@@ -72,18 +75,18 @@ class CameraPage extends StatelessWidget{
   //   _initializeControllerFuture = _controller.initialize();
   // }
 
-  @override
-  void dispose() {
-    // Dispose of the controller when the widget is disposed.
-
-    // SystemChrome.setPreferredOrientations([
-    // //   DeviceOrientation.landscapeRight,
-    // //   DeviceOrientation.landscapeLeft,
-    //   DeviceOrientation.portraitUp,
-    // //   DeviceOrientation.portraitDown,
-    // ]);
-    _controller.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // Dispose of the controller when the widget is disposed.
+  //
+  //   // SystemChrome.setPreferredOrientations([
+  //   // //   DeviceOrientation.landscapeRight,
+  //   // //   DeviceOrientation.landscapeLeft,
+  //   //   DeviceOrientation.portraitUp,
+  //   // //   DeviceOrientation.portraitDown,
+  //   // ]);
+  //   _controller.dispose();
+  // }
 
   @override
   Widget build(BuildContext context)
@@ -91,10 +94,19 @@ class CameraPage extends StatelessWidget{
     return Container(
       // alignment: Alignment.bottomCenter,
       // alignment: Alignment.center,
-        height: 100,
+      //   height: 100,
         // width: 100,
       child: Column(
-          children: [
+          children: [Container(
+            // height: 10,
+             padding: EdgeInsets.all(25.0),
+              child: Text(
+            'PLACEHOLDER TEXT',
+            textAlign: TextAlign.center,
+            //overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36.5,),
+          )) ,
+            Expanded(child: TakePictureScreen (camera: firstCamera)),
            // RotatedBox(quarterTurns: 3, child: FutureBuilder<void>
            //    (
            //    future: _initializeControllerFuture,
@@ -152,43 +164,40 @@ class CameraPage extends StatelessWidget{
            //  ),
            //
 
-            Row(
-              mainAxisSize : MainAxisSize.max,
-              mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-
-                RaisedButton(
-                  child: Text("Backspace"),
-                  //onPressed: _changeText,
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  //splashColor: Colors.red,
-                ),
-                /*RawMaterialButton(
-                  onPressed: (){},
-                  elevation: 2.0,
-                  fillColor: Colors.blue,
-                  child: Icon(
-                    Icons.camera_alt,
-                    size:24,
-                  ),
-                  padding: EdgeInsets.all(20.0),
-                  shape: CircleBorder(),
-
-
-                ),*/
-                RaisedButton(
-                  child: Text("Space"),
-                  //onPressed: changeText,
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  //splashColor: Colors.red,
-                )
-              ],
-            ),
+            // Row(
+            //   mainAxisSize : MainAxisSize.max,
+            //   mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //
+            //     RaisedButton(
+            //       child: Text("Backspace"),
+            //       //onPressed: _changeText,
+            //       color: Colors.grey,
+            //       textColor: Colors.black,
+            //       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+            //       //splashColor: Colors.red,
+            //     ),
+            //
+            //     // FloatingActionButton(
+            //     //   child: Icon(Icons.camera_alt),
+            //     //   // Provide an onPressed callback.
+            //     //   onPressed: () async {
+            //     //       //takePicture();
+            //     //   },
+            //     // ),
+            //
+            //
+            //     RaisedButton(
+            //       child: Text("Space"),
+            //       //onPressed: changeText,
+            //       color: Colors.grey,
+            //       textColor: Colors.black,
+            //       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+            //       //splashColor: Colors.red,
+            //     )
+            //   ],
+            // ),
           ],
       ),
       );

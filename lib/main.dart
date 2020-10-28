@@ -34,7 +34,7 @@ class MyAppState extends State<MyApp>
   final _pageOptions = [
     EducationPage(),
     CameraPage(
-      camera: firstCamera,
+      firstCamera: firstCamera,
     ),
     HistoryPage(),
   ];
