@@ -1,11 +1,20 @@
+import 'package:camera/camera.dart';
+import 'package:camera/new/src/support_android/camera.dart';
 import 'package:flutter/material.dart';
 
 import './cameraPage.dart';
 import './history.dart';
 import './education.dart';
 
-void main()
+CameraDescription firstCamera;
+
+Future<Null> main() async
+// void main()
 {
+  WidgetsFlutterBinding.ensureInitialized();
+  final cameras = await availableCameras();
+  firstCamera = cameras.first;
+
   runApp(MyApp());
 }
 
@@ -24,7 +33,9 @@ class MyAppState extends State<MyApp>
   int _selectedPage = 0;
   final _pageOptions = [
     EducationPage(),
-    CameraPage(),
+    CameraPage(
+      camera: firstCamera,
+    ),
     HistoryPage(),
   ];
 
