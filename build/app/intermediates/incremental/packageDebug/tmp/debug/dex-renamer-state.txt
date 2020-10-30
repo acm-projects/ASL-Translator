@@ -1,4 +1,4 @@
-#Wed Oct 28 00:10:39 CDT 2020
+#Thu Oct 29 22:45:22 CDT 2020
 path.3=classes_1.dex
 path.2=classes_0.dex
 path.1=classes.dex
@@ -7,7 +7,7 @@ renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.3=D\:\\OneDrive\\Learning\\School\\UTD\\Clubs\\ACM\\Flutter-Practice\\Integration\\ASL-Translator\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\out\\classes_1.dex
-base.2=D\:\\OneDrive\\Learning\\School\\UTD\\Clubs\\ACM\\Flutter-Practice\\Integration\\ASL-Translator\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\out\\classes_0.dex
-base.1=D\:\\OneDrive\\Learning\\School\\UTD\\Clubs\\ACM\\Flutter-Practice\\Integration\\ASL-Translator\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex
-base.0=D\:\\OneDrive\\Learning\\School\\UTD\\Clubs\\ACM\\Flutter-Practice\\Integration\\ASL-Translator\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
+base.3=C\:\\Users\\kikob\\Desktop\\ASL_repo\\ASL-Translator\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\out\\classes_1.dex
+base.2=C\:\\Users\\kikob\\Desktop\\ASL_repo\\ASL-Translator\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\out\\classes_0.dex
+base.1=C\:\\Users\\kikob\\Desktop\\ASL_repo\\ASL-Translator\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex
+base.0=C\:\\Users\\kikob\\Desktop\\ASL_repo\\ASL-Translator\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex

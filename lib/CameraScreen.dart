@@ -1,26 +1,21 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'dart:developer';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io' as Io;
-import 'dart:developer';
-import 'main.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
+import 'package:google_fonts/google_fonts.dart';
 
 String label = 'NULL';
 double detectedConf = -1;
 
 final String pv_arn = 'arn:aws:rekognition:us-east-2:248442916419:project/asl_translator/version/asl_translator.2020-10-17T02.47.19/1602920841128';
 final double conf = 20.0, maxResult = 35;
-
-// CameraController _controller;
-// Future<void> _initializeControllerFuture;
 
 // A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
@@ -38,15 +33,11 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   CameraController _controller;
   Future<void> _initializeControllerFuture;
+  String msg = "TestingTesting";
 
   @override
   void initState() {
     super.initState();
-    // SystemChrome.setPreferredOrientations([
-      // DeviceOrientation.portraitUp,
-      //   DeviceOrientation.portraitDown,
-      //   DeviceOrientation.landscapeLeft,
-    // ]);
     // To display the current output from the Camera,
     // create a CameraController.
     _controller = CameraController(
@@ -63,19 +54,46 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   void dispose() {
     // Dispose of the controller when the widget is disposed.
-
-    // SystemChrome.setPreferredOrientations([
-      //   DeviceOrientation.landscapeRight,
-      //   DeviceOrientation.landscapeLeft,
-      // DeviceOrientation.portraitUp,
-      //   DeviceOrientation.portraitDown,
-    // ]);
     _controller.dispose();
     super.dispose();
   }
 
-  // CameraController _controller;
-  // Future<void> _initializeControllerFuture;
+  type(String val){
+    log("type");
+    setState(() {
+      if (val == null){
+        msg = msg + "";
+      }
+      else{
+        msg = msg + val;
+      }
+    });
+  }
+  space() {
+    log("space msg = $msg");
+    setState(() {
+      msg = msg + " ";
+    });
+  }
+
+  clear(){
+    log("clear pressed");
+    setState(() {
+      msg = "";
+    });
+  }
+
+  backspace(){
+    log("back pressed msg = $msg" );
+    setState(() {
+      if(msg.length > 0) {
+        int end = msg.length - 1;
+        String _substring = msg.substring(0, end);
+        msg = msg.substring(0, end);
+      }
+    });
+  }
+
   CameraController getController(){
     return _controller;
   }
@@ -85,104 +103,108 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(title: Text('Take a picture')),
-      // // Wait until the controller is initialized before displaying the
-      // // camera preview. Use a FutureBuilder to display a loading spinner
-      // // until the controller has finished initializing.
-      // body: new Column (
-      //   children: [
-      //     Container (),
-      //   ],
-      //
-      // ),
+    return
+    Stack(
+      children: [
+        Expanded(
+            child: Scaffold(
+              body: RotatedBox(quarterTurns: 3, child: FutureBuilder<void>(
+                future: _initializeControllerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    // If the Future is complete, display the preview.
+                    return CameraPreview(_controller);
+                  } else {
+                    // Otherwise, display a loading indicator.
+                    return Center(
+                      child: Container(color: Colors.amberAccent,),
+                      //Expanded(child: Container(color: Colors.amberAccent,),),
+                      /*child: CircularProgressIndicator()*/
+                    );
+                  }
+                },
+              ),),
 
-      body: RotatedBox(quarterTurns: 3, child: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the Future is complete, display the preview.
-            return CameraPreview(_controller);
-          } else {
-            // Otherwise, display a loading indicator.
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      ),),
+              floatingActionButton: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                          padding: EdgeInsets.only(left: 15.0),
+                          child: FloatingActionButton.extended(
+                            onPressed: () => backspace(),
+                            label: GestureDetector(
+                                onLongPress: () => clear(),
+                                child: Text("Delete",)
+                            )
+                          )
+                      ),
+                    ),
+                    Expanded(
+                      child:FloatingActionButton(
+                        child: Icon(Icons.camera_alt),
+                        // Provide an onPressed callback.
+                        onPressed: () async {
+                          // Take the Picture in a try / catch block. If anything goes wrong,
+                          // catch the error.
+                          try {
+                            // Ensure that the camera is initialized.
+                            await _initializeControllerFuture;
 
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+                            // Construct the path where the image should be saved using the
+                            // pattern package.
+                            final path = join(
+                              // Store the picture in the temp directory.
+                              // Find the temp directory using the `path_provider` plugin.
+                              (await getTemporaryDirectory()).path,
+                              '${DateTime.now()}.png',
+                            );
 
-      floatingActionButton: Row(
-        // height: 69,
-        // width: 69,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
+                            // Attempt to take a picture and log where it's been saved.
+                            await _controller.takePicture(path);
 
-          Expanded(child: Container( padding: EdgeInsets.only(left: 20.0), child: FloatingActionButton.extended(onPressed: backspace(), label: Text("Backspace")))),
-          
-         Expanded( child:   FloatingActionButton(child: Icon(Icons.camera_alt),
-        // Provide an onPressed callback.
-           onPressed: () async {
-          // Take the Picture in a try / catch block. If anything goes wrong,
-          // catch the error.
-          try {
-            // Ensure that the camera is initialized.
-            await _initializeControllerFuture;
+                            label = await getImageLabel(path);
+                            type(label);
+                          } catch (e) {
+                            // If an error occurs, log the error to the console.
+                            print(e);
+                          }
+                        },
+                      ),
+                    ),
+                    Expanded(
+                        child: Container(
+                            padding: EdgeInsets.only(right: 15.0),
+                            child: FloatingActionButton.extended(
+                                onPressed: () => space(),
+                                label: Text("Space")
+                            ))),
+                  ] ),
 
-
-            // Construct the path where the image should be saved using the
-            // pattern package.
-            final path = join(
-              // Store the picture in the temp directory.
-              // Find the temp directory using the `path_provider` plugin.
-              (await getTemporaryDirectory()).path,
-              '${DateTime.now()}.png',
-            );
-
-            // Attempt to take a picture and log where it's been saved.
-            await _controller.takePicture(path);
-
-            // If the picture was taken, display it on a new screen.
-            label = await getImageLabel(path);
-
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => DisplayPictureScreen(imagePath: path),
-            //   ),
-            // );
-          } catch (e) {
-            // If an error occurs, log the error to the console.
-            print(e);
-          }
-        },
-      ),
-         ),
-
-
-          // Expanded(child: FloatingActionButton.extended(onPressed: backspace(), label: Text("Space"))),
-          Expanded(child: Container( padding: EdgeInsets.only(right: 20.0), child: FloatingActionButton.extended(onPressed: space(), label: Text("Space")))),
-        ] ),
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
-}
-
-
-// A widget that displays the picture taken by the user.
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
-
-  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(label)),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
-      body: RotatedBox(quarterTurns: 3, child:Image.file(File(imagePath)),), //Image.file(File(imagePath)),
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            ),
+        ),
+        Positioned(
+          left: MediaQuery.of(context).size.width * 0.025,
+          top: 40,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.95,
+            decoration: BoxDecoration(
+                color:Colors.black54,
+                borderRadius: BorderRadius.all(Radius.circular(28))
+            ),
+            padding: EdgeInsets.all(10.0),
+            child: Text('$msg',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 32,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -215,10 +237,6 @@ Future<detection> detectIt(String imgBytes) async {
     throw Exception('Failed. Status code: ' + resp.statusCode.toString() + "\nResponse Body: " + resp.body+"\n\n");
 
   }
-
-  // detection result = new detection.test();
-  // return result;
-
 }
 
 Future<String> getImageLabel(String imagePath) async{
@@ -232,7 +250,6 @@ Future<String> getImageLabel(String imagePath) async{
   final List<int> bytes = img.encodeNamedImage(rotatedImage, imagePath);
 
   String base64Encode = base64.encode(bytes);
-  //log(base64Encode);
   detection resp = await detectIt(base64Encode);
   String detectedLabel = resp.getLabel();
   log(detectedLabel);
@@ -273,13 +290,5 @@ class detection {
   String getAllLabels(){
     return allLabels;
   }
-}
-
- backspace(){
-
-}
-
-space(){
-
 }
 
