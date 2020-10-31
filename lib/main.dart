@@ -1,8 +1,6 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:camera/new/src/support_android/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/CameraScreen.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import './cameraPage.dart';
 import './history.dart';
@@ -11,6 +9,7 @@ import './education.dart';
 CameraDescription firstCamera;
 
 Future<Null> main() async
+// void main()
 {
   WidgetsFlutterBinding.ensureInitialized();
   final cameras = await availableCameras();
@@ -34,27 +33,11 @@ class MyAppState extends State<MyApp>
   int _selectedPage = 0;
   final _pageOptions = [
     EducationPage(),
-    TakePictureScreen(camera: firstCamera),
+    CameraPage(
+      firstCamera: firstCamera,
+    ),
     HistoryPage(),
   ];
-
-  PageController pageController = PageController(
-    initialPage: 0,
-    keepPage: true,
-  );
-
-  void pageChanged(int index) {
-    setState(() {
-      _selectedPage = index;
-    });
-  }
-
-  void bottomTapped(int index) {
-    setState(() {
-      _selectedPage = index;
-      pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
-    });
-  }
 
   @override
   Widget build(BuildContext context)
@@ -65,23 +48,13 @@ class MyAppState extends State<MyApp>
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: PageView(
-          controller: pageController,
-          onPageChanged: (index) {
-            pageChanged(index);
-          },
-          scrollDirection: Axis.horizontal,
-          pageSnapping: true,
-          physics: BouncingScrollPhysics(),
-          children: _pageOptions,
-        ),
-        /*_pageOptions[_selectedPage],*/
+        //appBar: AppBar(title: Text('ASL Translator'),),
+        body: _pageOptions[_selectedPage],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedPage,
           onTap: (int index) {
             setState(() {
               _selectedPage = index;
-              pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
             });
           },
           items: [
