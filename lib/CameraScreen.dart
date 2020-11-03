@@ -33,7 +33,7 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   CameraController _controller;
   Future<void> _initializeControllerFuture;
-  String msg = "TestingTesting";
+  String msg = "";
 
   @override
   void initState() {
@@ -117,9 +117,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                   } else {
                     // Otherwise, display a loading indicator.
                     return Center(
-                      child: Container(color: Colors.amberAccent,),
-                      //Expanded(child: Container(color: Colors.amberAccent,),),
-                      /*child: CircularProgressIndicator()*/
+                      child: CircularProgressIndicator()
                     );
                   }
                 },

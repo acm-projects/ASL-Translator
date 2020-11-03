@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/CameraScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import './history.dart';
+import './AbtUs.dart';
 import './education.dart';
 
 CameraDescription firstCamera;
@@ -34,7 +34,7 @@ class MyAppState extends State<MyApp>
   final _pageOptions = [
     EducationPage(),
     TakePictureScreen(camera: firstCamera),
-    HistoryPage(),
+    AbtUs(),
   ];
 
   PageController pageController = PageController(
@@ -93,8 +93,8 @@ class MyAppState extends State<MyApp>
                 title: Text('Translate')
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.history),
-                title: Text('History')
+                icon: Icon(Icons.history), //CHANGE THIS TO LOGO
+                title: Text('About Us')
             ),
           ],
         ),
