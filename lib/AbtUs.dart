@@ -4,7 +4,7 @@ class MyDivider extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: Colors.lightBlue,
+      color: Color.fromRGBO(65, 101, 138, 1.0),
       indent: 60,
       endIndent: 60,
       thickness: 2,
@@ -28,8 +28,8 @@ class ProfileCard extends StatelessWidget{
         width: MediaQuery.of(context).size.width * 0.5,
         height: MediaQuery.of(context).size.height * 0.33,
         decoration: BoxDecoration(
-        border: Border.all(width: 2.0, color: Colors.lightBlueAccent),
-        borderRadius: BorderRadius.all(Radius.circular(16))
+        border: Border.all(width: 2.0, color: Color.fromRGBO(65, 101, 138, .75)),
+        borderRadius: BorderRadius.all(Radius.circular(8))
         ),
         child: Column( //column of profile pic, name, and title
           children: [
@@ -39,7 +39,7 @@ class ProfileCard extends StatelessWidget{
               height: MediaQuery.of(context).size.width * 0.2,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                image: new DecorationImage(
+                image: DecorationImage(
                 fit: BoxFit.fill,
                 image: image),
                 ),
@@ -78,9 +78,9 @@ class AbtUs extends StatelessWidget
   Widget build(BuildContext context) {
     const images = [
       AssetImage('assets/placeholder2.png'),
+      AssetImage('assets/fMasang.jpg'),
       AssetImage('assets/placeholder2.png'),
-      AssetImage('assets/placeholder2.png'),
-      AssetImage('assets/placeholder2.png'),
+      AssetImage('assets/jGupta.jpg'),
       AssetImage('assets/placeholder2.png'),
       AssetImage('assets/placeholder2.png'),
       AssetImage('assets/placeholder2.png')
@@ -143,17 +143,17 @@ class AbtUs extends StatelessWidget
               )
           ),
           ProfileCard(name: team[0], title: titles[0], image: images[0]),
-          MyDivider(),
+          //MyDivider(),
           ProfileCard(name: team[1], title: titles[1], image: images[1]),
-          MyDivider(),
+          //MyDivider(),
           ProfileCard(name: team[2], title: titles[2], image: images[2]),
-          MyDivider(),
+          //MyDivider(),
           ProfileCard(name: team[3], title: titles[3], image: images[3]),
-          MyDivider(),
+          //MyDivider(),
           ProfileCard(name: team[4], title: titles[4], image: images[4]),
-          MyDivider(),
+          //MyDivider(),
           ProfileCard(name: team[5], title: titles[5], image: images[5]),
-          MyDivider(),
+          //MyDivider(),
           ProfileCard(name: team[6], title: titles[6], image: images[6]),
         ]
      );
