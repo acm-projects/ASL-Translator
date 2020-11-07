@@ -77,28 +77,28 @@ class AbtUs extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     const images = [
-      AssetImage('assets/placeholder2.png'),
       AssetImage('assets/fMasang.jpg'),
-      AssetImage('assets/placeholder2.png'),
+      AssetImage('assets/rigreG.jpeg'),
       AssetImage('assets/jGupta.jpg'),
+      AssetImage('assets/jbLee.jpg'),
+      AssetImage('assets/rahulP.jpg'),
+      AssetImage('assets/kendraH.PNG'),
       AssetImage('assets/placeholder2.png'),
-      AssetImage('assets/placeholder2.png'),
-      AssetImage('assets/placeholder2.png')
     ];
 
     var team = [
-      "Kendra Huang",
       "Francis Masangcay",
       "Rigre Garciandia",
       "Jeshna Gupta",
       "Jaebaek Lee",
       "Rahul Patel",
+      "Kendra Huang",
       "David Ricaud"
     ];
     String front = "Front End Dev";
     String back = "Back End Dev";
     String full = "Full Stack Dev";
-    var titles = ["Project Manager", full, full, front, back, front, "Advisor"];
+    var titles = [full, back, front, back, front, "Project Manager", "Industry Mentor"];
 
     return ListView(
         padding: EdgeInsets.all(25.0),
@@ -143,17 +143,11 @@ class AbtUs extends StatelessWidget
               )
           ),
           ProfileCard(name: team[0], title: titles[0], image: images[0]),
-          //MyDivider(),
           ProfileCard(name: team[1], title: titles[1], image: images[1]),
-          //MyDivider(),
           ProfileCard(name: team[2], title: titles[2], image: images[2]),
-          //MyDivider(),
           ProfileCard(name: team[3], title: titles[3], image: images[3]),
-          //MyDivider(),
           ProfileCard(name: team[4], title: titles[4], image: images[4]),
-          //MyDivider(),
           ProfileCard(name: team[5], title: titles[5], image: images[5]),
-          //MyDivider(),
           ProfileCard(name: team[6], title: titles[6], image: images[6]),
         ]
      );
